@@ -24,10 +24,7 @@
   try { var saved = localStorage.getItem("pom-theme"); if (saved) root.dataset.theme = saved; } catch (e) {}
   var btn = $(".theme-toggle");
   if (btn) btn.addEventListener("click", function () {
-    var dark = root.dataset.theme
-      ? root.dataset.theme === "dark"
-      : window.matchMedia("(prefers-color-scheme: dark)").matches;
-    root.dataset.theme = dark ? "light" : "dark";
+    root.dataset.theme = root.dataset.theme === "light" ? "dark" : "light";
     try { localStorage.setItem("pom-theme", root.dataset.theme); } catch (e) {}
   });
 
@@ -78,7 +75,7 @@
       var a = ev.target.closest("a"); if (!a) return;
       ev.preventDefault();
       renderList(Number(a.getAttribute("href").split("-")[1]));
-      $("#episodes").scrollIntoView();
+      $("#episodes").scrollIntoView({ behavior: "smooth" });
     });
 
     $("#cast-list").innerHTML = D.characters.map(function (c) {
@@ -130,5 +127,44 @@
     els.forEach(function (el) { io.observe(el); });
   } else {
     els.forEach(function (el) { el.classList.add("in"); });
+  }
+})();
+
+// Intro loader, smooth scrolling and anchor links
+(function () {
+  var root = document.documentElement;
+  var boot = document.querySelector(".boot");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ready = function () { root.classList.remove("booting"); root.classList.add("ready"); };
+
+  if (boot && !reduce) {
+    root.classList.add("booting");
+    var count = boot.querySelector(".boot-count"), start = performance.now(), dur = 1400;
+    var tick = function (now) {
+      var p = Math.min(1, (now - start) / dur);
+      p = 1 - Math.pow(1 - p, 3);
+      boot.style.setProperty("--p", p.toFixed(3));
+      count.textContent = String(Math.round(p * 100)).padStart(2, "0");
+      if (p < 1) requestAnimationFrame(tick);
+      else { boot.classList.add("done"); setTimeout(ready, 350); setTimeout(function () { boot.remove(); }, 1000); }
+    };
+    requestAnimationFrame(tick);
+  } else {
+    if (boot) boot.remove();
+    ready();
+  }
+
+  if (window.Lenis && !reduce) {
+    var lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 });
+    var raf = function (t) { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a || e.defaultPrevented) return;
+      var target = a.getAttribute("href") === "#main" ? 0 : document.querySelector(a.getAttribute("href"));
+      if (target === null) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -70 });
+    });
   }
 })();

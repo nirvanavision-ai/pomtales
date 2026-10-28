@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Pom Tales | Episodes</title>
   <meta name="description" content="Watch every episode of Pom Tales, an animated series about a pack of Pomeranians and their big adventures.">
-  <meta name="theme-color" content="#14110f">
+  <meta name="theme-color" content="#0a1a3a">
   <meta property="og:title" content="Pom Tales">
   <meta property="og:description" content="Little dogs. Big adventures. Watch every episode.">
   <meta property="og:type" content="website">
@@ -15,10 +15,11 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+  <div class="boot" aria-hidden="true"><span class="boot-count">00</span><span class="boot-bar"></span></div>
   <a class="skip" href="#main">Skip to content</a>
   <header class="nav">
     <a class="brand" href="./" aria-label="Pom Tales home">
@@ -36,8 +37,9 @@
 
   <main id="main">
     <section class="hero reveal">
-      <p class="eyebrow">An animated series</p>
-      <h1>Pom Tales. <span class="muted" data-bind="tagline"></span></h1>
+      <p class="eyebrow">An animated series · thepomtales.com</p>
+      <h1 class="display"><span class="line">Pom</span><span class="line">Tales<span class="dot">.</span></span></h1>
+      <p class="display-sub" data-bind="tagline"></p>
       <p class="lede" data-bind="intro"></p>
       <div class="cta">
         <a class="btn primary" id="latest-link" href="#episodes">Watch the latest episode</a>
@@ -47,36 +49,36 @@
     </section>
 
     <section id="featured" class="reveal">
-      <h2 class="section-title">Featured episodes</h2>
+      <h2 class="section-title"><span class="idx">01</span>Featured episodes</h2>
       <div class="featured" id="featured-list"></div>
     </section>
 
     <section id="episodes" class="reveal">
       <div class="section-head">
-        <h2 class="section-title">All episodes</h2>
+        <h2 class="section-title"><span class="idx">02</span>All episodes</h2>
         <div class="filters" id="season-filters" role="tablist" aria-label="Filter by season"></div>
       </div>
       <ol class="ep-list" id="episode-list"></ol>
     </section>
 
     <section id="cast" class="reveal">
-      <h2 class="section-title">Meet the Poms</h2>
+      <h2 class="section-title"><span class="idx">03</span>Meet the Poms</h2>
       <div class="cast" id="cast-list"></div>
     </section>
 
     <section id="faq" class="reveal">
-      <h2 class="section-title">FAQ</h2>
+      <h2 class="section-title"><span class="idx">04</span>FAQ</h2>
       <div class="faq" id="faq-list"></div>
     </section>
 
     <section id="archive" class="reveal">
-      <h2 class="section-title">Season archive</h2>
+      <h2 class="section-title"><span class="idx">05</span>Season archive</h2>
       <p class="muted">Jump back to any season.</p>
       <ul class="archive" id="archive-list"></ul>
     </section>
 
     <section id="contact" class="reveal">
-      <h2 class="section-title">Get in touch</h2>
+      <h2 class="section-title"><span class="idx">06</span>Get in touch</h2>
       <p class="lede">Fan mail, partnerships, press or licensing: we'd love to hear from you.</p>
       <p><a class="big-link" id="email-link" href="#"></a></p>
       <ul class="socials" id="socials"></ul>
@@ -88,6 +90,7 @@
     <a href="#main">Back to top ↑</a>
   </footer>
 
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="assets/data.js"></script>
   <script src="assets/app.js"></script>
 </body>
