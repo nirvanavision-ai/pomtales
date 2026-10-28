@@ -9,6 +9,8 @@ window.POM = {
     intro:
       "Pom Tales is an animated series following a pack of fluffy Pomeranians through everyday mischief and big-hearted adventures. New episodes drop regularly. Grab a snack and press play.", // [PLACEHOLDER]
     email: "hello@thepomtales.com", // [PLACEHOLDER]
+    youtube: "#",  // [PLACEHOLDER] link to the YouTube channel
+    pressKit: "#", // [PLACEHOLDER] link to a press kit (PDF or folder)
     socials: [
       { label: "YouTube", url: "#" },   // [PLACEHOLDER]
       { label: "Instagram", url: "#" }, // [PLACEHOLDER]
@@ -44,6 +46,16 @@ window.POM = {
     { id: "s1e3", season: 1, number: 3, title: "Episode Title Three", logline: "One-line hook for this episode.", description: "A short paragraph about what happens in this episode. [PLACEHOLDER]", date: "2026-03-15", runtime: "4:58", youtube: "", thumb: "", tags: ["Friendship"] },
     { id: "s1e2", season: 1, number: 2, title: "Episode Title Two", logline: "One-line hook for this episode.", description: "A short paragraph about what happens in this episode. [PLACEHOLDER]", date: "2026-03-01", runtime: "5:10", youtube: "", thumb: "", tags: ["Adventure"] },
     { id: "s1e1", season: 1, number: 1, title: "Pilot", logline: "Where it all began.", description: "A short paragraph about what happens in this episode. [PLACEHOLDER]", date: "2026-02-14", runtime: "5:45", youtube: "", thumb: "", tags: ["Pilot"] }
+  ],
+
+  /*
+    Seasons, newest first. Each gets its own page (season.html?s=1).
+    - status: "out" or "soon" (a "soon" season shows as Coming soon)
+  */
+  seasons: [
+    { number: 3, title: "Season 3", status: "soon", blurb: "New adventures are on the way. [PLACEHOLDER]" },
+    { number: 2, title: "Season 2", status: "out", blurb: "A short paragraph about Season 2: where the Poms go and what changes. [PLACEHOLDER]" },
+    { number: 1, title: "Season 1", status: "out", blurb: "A short paragraph about Season 1: how the pack met and their first adventures. [PLACEHOLDER]" }
   ],
 
   // The cast. [PLACEHOLDER] names, roles and art.
