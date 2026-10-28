@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Pom Tales | Episodes</title>
   <meta name="description" content="Watch every episode of Pom Tales, an animated series about a pack of Pomeranians and their big adventures.">
-  <meta name="theme-color" content="#0a1a3a">
+  <meta name="theme-color" content="#000000">
   <meta property="og:title" content="Pom Tales">
   <meta property="og:description" content="Little dogs. Big adventures. Watch every episode.">
   <meta property="og:type" content="website">
@@ -17,81 +17,83 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("pom-theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
-<body>
-  <div class="boot" aria-hidden="true"><span class="boot-count">00</span><span class="boot-bar"></span></div>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="nav">
-    <a class="brand" href="./" aria-label="Pom Tales home">
-      <img src="assets/img/logo.svg" alt="" width="28" height="28"><span>Pom Tales</span>
-    </a>
-    <nav aria-label="Main">
-      <a href="#featured">Featured</a>
-      <a href="#episodes">Episodes</a>
-      <a href="#cast">Cast</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <button class="theme-toggle" type="button" aria-label="Toggle dark mode">◐</button>
+<body class="app" data-view="episodes">
+  <header class="hud">
+    <a class="hud-logo" href="./" aria-label="Pom Tales, home"><img src="assets/img/logo.svg" alt="Pom Tales" width="34" height="34"></a>
   </header>
 
-  <main id="main">
-    <section class="hero reveal">
-      <p class="eyebrow">An animated series · thepomtales.com</p>
-      <h1 class="display"><span class="line">Pom</span><span class="line">Tales<span class="dot">.</span></span></h1>
-      <p class="display-sub" data-bind="tagline"></p>
-      <p class="lede" data-bind="intro"></p>
-      <div class="cta">
-        <a class="btn primary" id="latest-link" href="#episodes">Watch the latest episode</a>
-        <a class="btn" href="#episodes">Browse all episodes</a>
-      </div>
-      <dl class="facts" id="facts"></dl>
-    </section>
+  <main class="stage" id="main">
+    <div class="cube">
+      <!-- Episodes: the curved card wall -->
+      <section class="face face-episodes is-on" data-face="episodes" aria-label="Episodes">
+        <h1 class="sr-only">Pom Tales episodes</h1>
+        <canvas class="wall" aria-hidden="true"></canvas>
+        <ul class="sr-only" id="ep-links"></ul>
+      </section>
 
-    <section id="featured" class="reveal">
-      <h2 class="section-title"><span class="idx">01</span>Featured episodes</h2>
-      <div class="featured" id="featured-list"></div>
-    </section>
+      <!-- Episode guide: big flip number, details, timeline ruler -->
+      <section class="face face-guide board" data-face="guide" aria-label="Episode guide">
+        <div class="board-floor" aria-hidden="true"></div>
+        <div class="guide-stage">
+          <h2 class="guide-num" aria-live="polite"><span class="sr-only">Episode </span><span class="flip" id="guide-num"></span></h2>
+          <div class="guide-post" id="guide-post"></div>
+        </div>
+        <div class="guide-steps">
+          <button type="button" class="round-btn" data-step="-1" aria-label="Newer episode"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+          <button type="button" class="round-btn" data-step="1" aria-label="Older episode"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
+        <div class="ruler" id="ruler"></div>
+      </section>
 
-    <section id="episodes" class="reveal">
-      <div class="section-head">
-        <h2 class="section-title"><span class="idx">02</span>All episodes</h2>
-        <div class="filters" id="season-filters" role="tablist" aria-label="Filter by season"></div>
-      </div>
-      <ol class="ep-list" id="episode-list"></ol>
-    </section>
+      <!-- Seasons: a shelf of screens -->
+      <section class="face face-seasons board" data-face="seasons" aria-label="Seasons">
+        <div class="board-floor" aria-hidden="true"></div>
+        <div class="shelf" id="shelf"><div class="shelf-track" id="shelf-track"></div></div>
+        <button type="button" class="round-btn shelf-prev" aria-label="Previous">‹</button>
+        <button type="button" class="round-btn shelf-next" aria-label="Next">›</button>
+      </section>
 
-    <section id="cast" class="reveal">
-      <h2 class="section-title"><span class="idx">03</span>Meet the Poms</h2>
-      <div class="cast" id="cast-list"></div>
-    </section>
-
-    <section id="faq" class="reveal">
-      <h2 class="section-title"><span class="idx">04</span>FAQ</h2>
-      <div class="faq" id="faq-list"></div>
-    </section>
-
-    <section id="archive" class="reveal">
-      <h2 class="section-title"><span class="idx">05</span>Season archive</h2>
-      <p class="muted">Jump back to any season.</p>
-      <ul class="archive" id="archive-list"></ul>
-    </section>
-
-    <section id="contact" class="reveal">
-      <h2 class="section-title"><span class="idx">06</span>Get in touch</h2>
-      <p class="lede">Fan mail, partnerships, press or licensing: we'd love to hear from you.</p>
-      <p><a class="big-link" id="email-link" href="#"></a></p>
-      <ul class="socials" id="socials"></ul>
-    </section>
+      <!-- More: contact, cast, socials, appearance -->
+      <section class="face face-more board" data-face="more" aria-label="More">
+        <div class="board-floor" aria-hidden="true"></div>
+        <div class="more-wrap">
+          <div class="panel" id="contact-panel"></div>
+          <div class="panel" id="side-panel"></div>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <footer class="footer">
-    <span>© <span id="year"></span> Pom Tales. All rights reserved.</span>
-    <a href="#main">Back to top ↑</a>
-  </footer>
+  <nav class="dock is-load" id="dock" aria-label="Pages">
+    <div class="dock-glass">
+      <span class="dock-meter" aria-hidden="true"></span>
+      <span class="dock-hint" aria-hidden="true">Scroll or drag to explore</span>
+      <button type="button" class="dock-item" data-go="episodes" aria-current="page" aria-label="Episodes">
+        <span class="dock-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1.2"/><rect x="9.5" y="3" width="5" height="5" rx="1.2"/><rect x="16" y="3" width="5" height="5" rx="1.2"/><rect x="3" y="9.5" width="5" height="5" rx="1.2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1.2"/><rect x="16" y="9.5" width="5" height="5" rx="1.2"/><rect x="3" y="16" width="5" height="5" rx="1.2"/><rect x="9.5" y="16" width="5" height="5" rx="1.2"/><rect x="16" y="16" width="5" height="5" rx="1.2"/></svg></span>
+        <span class="dock-label">Episodes</span>
+      </button>
+      <button type="button" class="dock-item" data-go="guide" aria-label="Episode guide">
+        <span class="dock-icon"><svg viewBox="0 0 24 24"><path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V8h4.5zM8 12h8v1.6H8zm0 4h8v1.6H8z"/></svg></span>
+        <span class="dock-label">Episode guide</span>
+      </button>
+      <button type="button" class="dock-item" data-go="seasons" aria-label="Seasons">
+        <span class="dock-icon"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-6v2h3v2H8v-2h3v-2H5a2 2 0 0 1-2-2zm2 0v10h14V5z"/></svg></span>
+        <span class="dock-label">Seasons</span>
+      </button>
+      <button type="button" class="dock-item" data-go="more" aria-label="More">
+        <span class="dock-icon"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="19" cy="12" r="2.2"/></svg></span>
+        <span class="dock-label">More</span>
+      </button>
+    </div>
+  </nav>
 
-  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <div class="curtain" aria-hidden="true"></div>
+
   <script src="assets/data.js"></script>
-  <script src="assets/app.js"></script>
+  <script src="assets/art.js"></script>
+  <script src="assets/wall.js"></script>
+  <script src="assets/home.js"></script>
 </body>
 </html>
