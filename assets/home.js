@@ -135,7 +135,7 @@
     void prev;
   }
 
-  $$(".dock-item").forEach(function (b) {
+  $$(".dock-item[data-go]").forEach(function (b) {
     b.addEventListener("click", function () { show(b.dataset.go); });
   });
   window.addEventListener("keydown", function (e) {
